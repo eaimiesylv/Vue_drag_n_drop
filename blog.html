@@ -1,0 +1,176 @@
+<html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+<!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+<script src="//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+<!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+	min-height:70vh;
+}
+
+.content {
+    flex-basis: 70%;
+}
+
+.content article {
+    margin-bottom: 40px;
+}
+
+.sidebar {
+    flex-basis: 28%;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+ .draggable-handle {
+            cursor: move; /* Show the move cursor when hovering over the element */
+            position: relative;
+        }
+
+        .handle-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .draggable-handle:hover .handle-icon {
+            color: #333; /* Change the handle icon color on hover */
+        }
+
+</style>
+</head>
+<body>
+    <header>
+        <h1>Simple Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Your existing header -->
+
+    
+
+    <main id="app">
+         <section class="content">
+			<draggable :list="sections" :options="{group: 'blog'}">
+				<article v-for="(section, index) in sections" :key="'section-' + index" class="draggable-handle">
+					<i class="handle-icon fas fa-grip-vertical"></i> <!-- Handle icon -->
+					<h2>{{ section.title }}</h2>
+					<img v-if="section.image" :src="section.image" />
+					<p v-else>{{ section.content }}</p>
+				</article>
+			</draggable>
+		</section>
+        <aside class="sidebar">
+          
+                <div v-for="(aside, index) in asides" :key="'aside-' + index">
+                    <h2>{{ aside.title }}</h2>
+                    <p>Hi, I'm a blogger and I love writing about various topics. Welcome to my blog!</p>
+                    <h2>Categories</h2>
+                    <ul>
+                        <li v-for="(category, index2) in aside.categories" :key="'category-' + index2">
+                            <a href="#">{{ category }}</a>
+                        </li>
+                    </ul>
+                </div>
+           
+        </aside>
+    </main>
+
+    <!-- Your existing footer and script -->
+</body>
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        sections: [
+            {
+                title: 'Blog Post Title 1',
+                image: './images/1.PNG',
+            },
+            {
+                title: 'Blog Post Title 2',
+                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.',
+            },
+            {
+                title: 'Blog Post Title 3',
+                content: 'Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.',
+            },
+        ],
+        asides: [
+            {
+                title: 'First Aside one',
+                categories: ['Category A', 'Category B', 'Category C'],
+            },
+           
+        ],
+    },
+});
+</script>
+</html>
